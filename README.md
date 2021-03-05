@@ -2,7 +2,6 @@
 
 calculatehoursworked its an exercise written in javascript that reads a .text file with a defined structure that contains information about the hours worked of a person and then process the data and showing in the console
 
-
 ## Table of contents
 
 - [Architecture](#Architecture)
@@ -43,9 +42,9 @@ Before installing this project, you have to install Nodejs and npm. Then run the
 - Clone the repo: `git clone https://github.com/jonathanJet/calculatehoursworked.git`
 - Enter the repo: `cd calculatehoursworked`
 - Install dependencies (jest): `npm i`
-- Run test: `run test`
-- Run program: `run start`
+- Run test: `npm run test`
+- Run program: `npm run start`
 
 ## Author
 
-* **Jonathan Torres C.** - email: jonathan.torresc@hotmail.com
+- **Jonathan Torres C.** - email: jonathan.torresc@hotmail.com

@@ -2,10 +2,40 @@ const fs = require('fs')
 const { CURRENCY } = require('../config/config')
 const { getTotalPay } = require('./coreSchedule')
 
+exports.evaluateFile = (pathFile) => {
+
+    fs.readFile(pathFile, 'utf8', (err,data) => {
+
+        if (err) {
+          return console.log(err);
+        }
+
+        // split line by line the file
+        let scheduleStringInputArrays = data.split(/\r?\n/);
+
+        // evaluate each line
+        for (const key in scheduleStringInputArrays){
+            //get the horary into a Array
+            let schedules = this.getSchedulesFromStringInput(scheduleStringInputArrays[key])
+
+            //show the OUTPUT
+            console.log(`the amount to pay ${this.getName(scheduleStringInputArrays[key])} is: ${getTotalPay(schedules)} ${CURRENCY}`);
+        }
+
+      });
+}
+
+exports.getName = (stringInput) => {
+    return stringInput.split("=")[0]
+}
+
 exports.getSchedulesFromStringInput = (stringInput) => {
     let schedulesResult = []
-    const schedulesString = stringInput.split("=")[1] 
+    // get the horary string
+    const schedulesString = stringInput.split("=")[1]
+    // separate the horarys 
     const schedulesArrayStrings = schedulesString.split(",")
+    // evaluate the horarys
     schedulesArrayStrings.map( (schedulesArrayString) => {
         const day = schedulesArrayString.slice(0,2);
         const hoursString = schedulesArrayString.slice(2);
@@ -20,26 +50,4 @@ exports.getSchedulesFromStringInput = (stringInput) => {
         
     })
     return schedulesResult
-}
-
-exports.evaluateFile = (pathFile) => {
-
-    fs.readFile(pathFile, 'utf8', (err,data) => {
-
-        if (err) {
-          return console.log(err);
-        }
-
-        let scheduleStringInputArrays = data.split(/\r?\n/);
-
-        for (const key in scheduleStringInputArrays){
-            let schedules = this.getSchedulesFromStringInput(scheduleStringInputArrays[key])
-            console.log(`the amount to pay ${this.getName(scheduleStringInputArrays[key])} is: ${getTotalPay(schedules)} ${CURRENCY}`);
-        }
-
-      });
-}
-
-exports.getName = (stringInput) => {
-    return stringInput.split("=")[0]
 }
